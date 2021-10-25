@@ -28,7 +28,7 @@ html {
 
 /*Header setup!*/
 header {
-    padding: 10px;
+    padding: 5px;
     border-bottom: 2px solid var(--secondary-light);
     background-color: var(--secondary-dark);
 }
