@@ -1,0 +1,146 @@
+/* Color variables*/
+:root {
+    --primary-light: lightcyan;
+    --secondary-light: papayawhip;
+    --primary-dark: #222831;
+    --secondary-dark: #393e46;
+    --secondary-dark: #393e46;
+    --secondary-dark-hover: #4a4f57;
+    --secondary-dark-active: #5b5f68;
+}
+
+body {
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    line-height: 1.6;
+    text-align: center;
+    /*Supports footer*/
+    margin-bottom: 100px;
+}
+
+html {
+    /* footer support */
+    position: relative;
+    min-height: 100%;
+}
+
+
+/*Header setup!*/
+header {
+    padding: 10px;
+    border-bottom: 2px solid var(--secondary-light);
+    background-color: var(--secondary-dark);
+}
+
+.title {
+    font-size: 50px;
+    color: var(--secondary-light);
+}
+
+/*Body setup!*/
+
+button {
+    border: none;
+    color: inherit;
+    border: 2px solid var(--primary-light);
+    border-radius: 10px;
+    background-color: var(--secondary-dark);
+    padding: 20px;
+    margin: 10px;
+    align-items: stretch;
+}
+
+button:hover {
+    background-color: var(--secondary-dark-hover);
+}
+
+button:active {
+    background-color: var(--secondary-dark-active);
+}
+
+.fa {
+    font-size: 100px;
+}
+
+.scoreboard {
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.score-info {
+    font-size: 40px;
+}
+
+.scores-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    max-width: 400px;
+    padding: 10px;
+    margin: 0 auto;
+    font-size: 24px;
+}
+
+.score {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+.score #wins,
+.score #loses {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+li {
+    list-style-type: none;
+}
+
+/*Footer setup!*/
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    color: var(--primary-light);
+    font-size: 20px;
+}
+
+.fa-github {
+    color: var(--primary-light);
+    font-size: 25px;
+    transition: transform 1.3s ease-in-out;
+}
+
+.fa-github:hover {
+    transform: rotate(360deg) scale(1.2);
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 550px) {
+    .title {
+        font-size: 30px;
+    }
+
+    .score-info {
+        font-size: 30px;
+    }
+
+    .fa {
+        font-size: 55px;
+    }
+
+    .fab {
+        font-size: 20px;
+    }
+}
