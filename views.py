@@ -1,10 +1,27 @@
 from flask import render_template, request
 from app import *
-from functions.get_csv import save_csv
-from functions.print_result import getValue
+from fungsi.get_csv import save_csv
+from fungsi.print_result import getValue
+from fungsi.graph_df import graph_df
+from fungsi.create_today_csv import save_csv_today
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
+import time
 
+
+def update():
+    tanggalupdatekonverter = datetime.fromtimestamp(os.path.getmtime(
+        'fungsi/today_dfs/AED_exchange.csv'))
+
+    tanggalupdategraph = datetime.fromtimestamp(os.path.getmtime(
+        'fungsi/currency_dfs/AED/fx_daily_AED_ARS.csv'))
+
+    if (datetime.now() - tanggalupdatekonverter > timedelta(days=1)):
+        print("I am in!")
+        save_csv_today()
+    if (datetime.now() - tanggalupdategraph > timedelta(days=1)):
+        print("I am in!")
+        save_csv()
 
 @app.route('/')
 def home():
@@ -13,26 +30,35 @@ def home():
 
 @app.route("/konverter", methods=["GET", "POST"])
 def konverter():
-    tanggalupdate = os.path.getmtime(
-        'functions/currency_dfs/AED_exchange.csv')
-    tanggalupdate = datetime.fromtimestamp(
-        tanggalupdate).strftime('%Y-%m-%d %H:%M:%S')
-
+    tanggalupdatekonverter = os.path.getmtime(
+        'fungsi/today_dfs/AED_exchange.csv')
+    tanggalupdatekonverter = datetime.fromtimestamp(
+        tanggalupdatekonverter).strftime('%Y-%m-%d %H:%M:%S')
     if request.method == "POST":
         kuantitas = float(request.form.get('jumlah'))
         matauangasal = request.form.get('matauangasal')
         matauangtarget = request.form.get('matauangtarget')
 
         hasilkonversi = getValue(kuantitas, matauangasal, matauangtarget)
-        return render_template("public/konverter.html", diperbarui=tanggalupdate, currencies=CURRENCIES, matauangasal=matauangasal, matauangtarget=matauangtarget, hasilkonversi=hasilkonversi, jumlahawal=kuantitas)
+        return render_template("public/konverter.html", diperbarui=tanggalupdatekonverter, currencies=CURRENCIES, matauangasal=matauangasal, matauangtarget=matauangtarget, hasilkonversi=hasilkonversi, jumlahawal=kuantitas)
     else:
-        return render_template("public/konverter.html", diperbarui=tanggalupdate, currencies=CURRENCIES)
+        return render_template("public/konverter.html", diperbarui=tanggalupdatekonverter, currencies=CURRENCIES)
 
 
 @app.route("/graph", methods=["GET", "POST"])
 def graph():
-    # todo
-    return render_template("public/graph.html")
+    tanggalupdategraph = os.path.getmtime(
+        'fungsi/currency_dfs/AED/fx_daily_AED_ARS.csv')
+    tanggalupdategraph = datetime.fromtimestamp(
+        tanggalupdategraph).strftime('%Y-%m-%d %H:%M:%S')
+    if request.method == "POST":
+        matauangasal = request.form.get("matauangasal")
+        matauangtarget = request.form.get("matauangtarget")
+        graph_df(matauangasal, matauangtarget)
+        time.sleep(1)
+        return render_template("public/graph.html", diperbarui=tanggalupdategraph, currencies=CURRENCIES, matauangasal=matauangasal, matauangtarget=matauangtarget)
+    else:
+        return render_template("public/graph.html", diperbarui=tanggalupdategraph, currencies=CURRENCIES)
 
 
 @app.route("/about")

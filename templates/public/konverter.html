@@ -24,34 +24,42 @@
             <h3>{{hasilkonversi}} {{matauangtarget}}</h3>
         </div>
     </div>
+    {% if jumlahawal is defined %}
     <div class="row">
         <div class = "col-lg-4 col-centered">
             <h4>{{jumlahawal}} {{matauangasal}}</h4>
         </div>
         <div class = "col-centered">
-            ->
+            <h4>=></h4>
         </div>
         <div class = "col-lg-4 col-centered">
             <h4>{{hasilkonversi}} {{matauangtarget}}</h4>
         </div>
     </div>
+    {% endif %}
 </div>
 
 <div class="container text-center col-centered">
     <div class="form-group align-center">
         <form action = "/konverter" method = "post">
-            <li><input name="jumlah" placeholder="Jumlah Uang" type="number" step="any" min ="0"></li>
-            <select id="asal" name="matauangasal">
-                {% for symbol, value in currencies %}
-                    <option value={{symbol}}>{{value}}</option>
-                {% endfor %}
-            </select>
-            <select id="target" name="matauangtarget">
-                {% for symbol, value in currencies %}
-                    <option value={{symbol}}>{{value}}</option>
-                {% endfor %}
-            </select>
-            <li><input type="submit" value = "Kirim pesanan"></li>
+            <div class = "row">
+                <li><input name="jumlah" placeholder="Jumlah Uang" type="number" step="any" min = 0></li>
+            </div>
+            <div class="row">
+                <select id="asal" name="matauangasal">
+                    {% for symbol, value in currencies %}
+                        <option value={{symbol}}>{{value}}</option>
+                    {% endfor %}
+                </select>
+                <select id="target" name="matauangtarget">
+                    {% for symbol, value in currencies %}
+                        <option value={{symbol}}>{{value}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="row">
+                <li><input type="submit" value = "Kirim pesanan"></li>
+            </div>
         </form>
     </div>
 </div>

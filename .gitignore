@@ -1,3 +1,6 @@
 __pycache__
 .vscode
 env
+static/img/graph_img
+fungsi/currency_dfs
+fungsi/today_dfs

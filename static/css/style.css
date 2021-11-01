@@ -21,6 +21,21 @@ textarea {
     margin-left: auto;
 }
 
+.container {
+    padding: 25px;
+}
+
+select {
+    display: flex;
+    justify-content: space-between;
+}
+
+.row {
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+}
+
 /* footer */
 
 footer {
@@ -63,6 +78,7 @@ li {
     list-style-type: none;
 }
 
+/*Animasi keren!*/
 .fa-github {
     color: black;
     font-size: 25px;
