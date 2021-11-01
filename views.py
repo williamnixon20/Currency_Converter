@@ -23,6 +23,7 @@ def update():
         print("I am in!")
         save_csv()
 
+
 @app.route('/')
 def home():
     return render_template('public/home.html')
@@ -55,7 +56,7 @@ def graph():
         matauangasal = request.form.get("matauangasal")
         matauangtarget = request.form.get("matauangtarget")
         graph_df(matauangasal, matauangtarget)
-        time.sleep(1)
+        time.sleep(2)
         return render_template("public/graph.html", diperbarui=tanggalupdategraph, currencies=CURRENCIES, matauangasal=matauangasal, matauangtarget=matauangtarget)
     else:
         return render_template("public/graph.html", diperbarui=tanggalupdategraph, currencies=CURRENCIES)
