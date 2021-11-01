@@ -1,0 +1,58 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron text-center">
+    <div class="container">
+        <h1 class="title">Silakan tukarkan mata uang anda disini!</h1>
+        <br>
+        <h5>Input nilai mata uang, mata uang asal, serta mata uang tujuan!</h5>
+        <br>
+        <h6>Terakhir diperbarui: <br>{{diperbarui}}</h6>
+    </div>
+</div><!-- /.jumbotron -->
+
+<div class="container text-center">
+    <div class="row">
+        <div class = "col-lg-6 col-centered">
+        <h2><i class = "fa fa-comments-dollar"></i> Hasil konversi mata uang anda adalah:</h2>
+    </div>
+
+<div class="container text-center">
+    <div class="row">
+        <div class = "col-lg-6 col-centered">
+            <h3>{{hasilkonversi}} {{matauangtarget}}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class = "col-lg-4 col-centered">
+            <h4>{{jumlahawal}} {{matauangasal}}</h4>
+        </div>
+        <div class = "col-centered">
+            ->
+        </div>
+        <div class = "col-lg-4 col-centered">
+            <h4>{{hasilkonversi}} {{matauangtarget}}</h4>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center col-centered">
+    <div class="form-group align-center">
+        <form action = "/konverter" method = "post">
+            <li><input name="jumlah" placeholder="Jumlah Uang" type="number" step="any" min ="0"></li>
+            <select id="asal" name="matauangasal">
+                {% for symbol, value in currencies %}
+                    <option value={{symbol}}>{{value}}</option>
+                {% endfor %}
+            </select>
+            <select id="target" name="matauangtarget">
+                {% for symbol, value in currencies %}
+                    <option value={{symbol}}>{{value}}</option>
+                {% endfor %}
+            </select>
+            <li><input type="submit" value = "Kirim pesanan"></li>
+        </form>
+    </div>
+</div>
+{% endblock %}

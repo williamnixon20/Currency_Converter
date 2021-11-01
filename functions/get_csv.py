@@ -80,6 +80,3 @@ def save_csv():
             writer.writerow(["currency", "rate"])
             for exc in currs:
                 writer.writerow(exc)
-
-
-save_csv()

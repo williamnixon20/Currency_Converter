@@ -1,0 +1,42 @@
+
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Tentang kami</h1>
+        <div class="card-deck">
+            <div class="card">
+              <img class="card-img-top" src="../../static/img/cheems.jpg">
+              <div class="card-body">
+                <h5 class="card-title">William Nixon</h5>
+                <p class="card-text">Halo! Saya William dan saya lahir di Jakarta.</p>
+              </div>
+            </div>
+            <div class="card">
+              <img class="card-img-top" src="..." alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+            <div class="card">
+              <img class="card-img-top" src="..." alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+        </div>
+    <h1 class="mt-5">Acknowledgements</h1>
+    <div class="row">
+        <p class> Website ini dibuat dengan bantuan beberapa template bantuan, diantaranya:</p>
+        <ul class="company">
+            <li><a href="https://getbootstrap.com/">Bootstrap</a> sebagai library HTML, CSS, dan JS.</li>
+            <li><a href="https://www.x-rates.com/">X-rates.com</a> sebagai website sumber webscraping.</li>
+            <li><a href="https://github.com/cookiecutter-flask/cookiecutter-flask">Flask Cookiecutter</a> sebagai penyedia template aplikasi flask.</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

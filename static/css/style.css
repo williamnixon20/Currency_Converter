@@ -1,0 +1,94 @@
+html {
+    overflow-y: scroll;
+}
+
+body {
+    padding-top: 60px;
+    text-align: center;
+}
+
+section {
+    overflow: auto;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.col-centered {
+    float: none;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* footer */
+
+footer {
+    margin-top: 45px;
+    padding-top: 5px;
+    border-top: 1px solid #eaeaea;
+    color: #999999;
+}
+
+footer a {
+    color: #999999;
+}
+
+footer p {
+    float: right;
+    margin-right: 25px;
+}
+
+footer ul {
+    list-style: none;
+}
+
+footer ul li {
+    float: left;
+    margin-left: 10px;
+}
+
+footer .company {
+    float: left;
+    margin-left: 25px;
+}
+
+footer .footer-nav {
+    float: right;
+    margin-right: 25px;
+    list-style: none;
+}
+
+li {
+    list-style-type: none;
+}
+
+.fa-github {
+    color: black;
+    font-size: 25px;
+    transition: transform 1.3s ease-in-out;
+}
+
+.fa-github:hover {
+    transform: rotate(360deg) scale(1.2);
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 550px) {
+    .title {
+        font-size: 30px;
+    }
+
+    .score-info {
+        font-size: 30px;
+    }
+
+    .fa {
+        font-size: 55px;
+    }
+
+    .fab {
+        font-size: 20px;
+    }
+}
