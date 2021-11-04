@@ -8,6 +8,8 @@ import os
 from datetime import datetime, timedelta
 import time
 
+# Fungsi untuk mengupdate database jika waktu update terakhir > 1 hari
+
 
 def update():
     tanggal_update_konverter = datetime.fromtimestamp(os.path.getmtime(
@@ -23,18 +25,24 @@ def update():
         print("Akan mengupdate data graph")
         save_csv()
 
+# Router jika web diakses melalui jalur /
+
 
 @app.route('/')
 def home():
     return render_template('public/home.html')
 
+# Router jika web diakses melalui jalur /konverter
+
 
 @app.route("/konverter", methods=["GET", "POST"])
 def konverter():
+    # Tanggal terakhir data di update
     tanggal_update_konverter = os.path.getmtime(
         'fungsi/today_dfs/AED_exchange.csv')
     tanggal_update_konverter = datetime.fromtimestamp(
         tanggal_update_konverter).strftime('%Y-%m-%d %H:%M:%S')
+    # Jika user telah mengsubmit data ("POST"), olah data tersebut dengan mengoper data ke fungsi getValue!
     if request.method == "POST":
         kuantitas = float(request.form.get('jumlah'))
         mata_uang_asal = request.form.get('matauangasal')
@@ -42,31 +50,42 @@ def konverter():
 
         hasil_konversi = getValue(kuantitas, mata_uang_asal, mata_uang_target)
         return render_template("public/konverter.html", diperbarui=tanggal_update_konverter, currencies=currencies, matauangasal=mata_uang_asal, matauangtarget=mata_uang_target, hasilkonversi=hasil_konversi, jumlahawal=kuantitas)
+    # Jika user meminta halaman ("GET"), maka berikan halaman HTML yang sesuai.
     else:
         return render_template("public/konverter.html", diperbarui=tanggal_update_konverter, currencies=currencies)
+
+# Router jika web diakses melalui jalur /graph
 
 
 @app.route("/graph", methods=["GET", "POST"])
 def graph():
+    # Tanggal terakhir data graph diupdate
     tanggal_update_graph = os.path.getmtime(
         'fungsi/currency_dfs/AED/fx_daily_AED_ARS.csv')
     tanggal_update_graph = datetime.fromtimestamp(
         tanggal_update_graph).strftime('%Y-%m-%d %H:%M:%S')
+    # Jika user telah mengsubmit data ("POST"), buat grafik yang sesuai dengan mengoper ke fungsi graph_df
     if request.method == "POST":
         mata_uang_asal = request.form.get("matauangasal")
         mata_uang_target = request.form.get("matauangtarget")
         graph_df(mata_uang_asal, mata_uang_target)
+        # Sleep selama 2 detik agar memastikan gambar graph selesai dibuat.
         time.sleep(2)
         return render_template("public/graph.html", diperbarui=tanggal_update_graph, currencies=currencies, matauangasal=mata_uang_asal, matauangtarget=mata_uang_target)
     else:
+        # Jika user meminta halaman ("GET"), maka berikan halaman HTML yang sesuai.
         return render_template("public/graph.html", diperbarui=tanggal_update_graph, currencies=currencies)
+
+# Router jika web diakses melalui jalur /about
 
 
 @app.route("/about")
 def about():
+    # Kembalikan halaman yang sesuai
     return render_template("public/about.html")
 
 
+# Matriks Nx2 tempat menyimpan data singkatan mata uang dan nama panjangnya.
 currencies = [["AED", "Emirati Dirham"],
               ["ARS", "Argentine Peso"],
               ["AUD", "Australian Dollar"],
