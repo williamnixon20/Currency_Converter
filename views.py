@@ -9,8 +9,6 @@ from datetime import datetime, timedelta
 import time
 
 # Fungsi untuk mengupdate database jika waktu update terakhir > 1 hari
-
-
 def update():
     tanggal_update_konverter = datetime.fromtimestamp(os.path.getmtime(
         'fungsi/today_dfs/AED_exchange.csv'))
@@ -33,8 +31,6 @@ def home():
     return render_template('public/home.html')
 
 # Router jika web diakses melalui jalur /konverter
-
-
 @app.route("/konverter", methods=["GET", "POST"])
 def konverter():
     # Tanggal terakhir data di update
@@ -55,8 +51,6 @@ def konverter():
         return render_template("public/konverter.html", diperbarui=tanggal_update_konverter, currencies=currencies)
 
 # Router jika web diakses melalui jalur /graph
-
-
 @app.route("/graph", methods=["GET", "POST"])
 def graph():
     # Tanggal terakhir data graph diupdate
@@ -69,16 +63,12 @@ def graph():
         mata_uang_asal = request.form.get("matauangasal")
         mata_uang_target = request.form.get("matauangtarget")
         graph_df(mata_uang_asal, mata_uang_target)
-        # Sleep selama 2 detik agar memastikan gambar graph selesai dibuat.
-        time.sleep(2)
         return render_template("public/graph.html", diperbarui=tanggal_update_graph, currencies=currencies, matauangasal=mata_uang_asal, matauangtarget=mata_uang_target)
     else:
         # Jika user meminta halaman ("GET"), maka berikan halaman HTML yang sesuai.
         return render_template("public/graph.html", diperbarui=tanggal_update_graph, currencies=currencies)
 
 # Router jika web diakses melalui jalur /about
-
-
 @app.route("/about")
 def about():
     # Kembalikan halaman yang sesuai
