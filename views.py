@@ -6,7 +6,6 @@ from fungsi.graph_df import graph_df
 from fungsi.create_today_csv import save_csv_today
 import os
 from datetime import datetime, timedelta
-import time
 
 # Fungsi untuk mengupdate database jika waktu update terakhir > 1 hari
 def update():
