@@ -10,17 +10,17 @@ import time
 
 
 def update():
-    tanggalupdatekonverter = datetime.fromtimestamp(os.path.getmtime(
+    tanggal_update_konverter = datetime.fromtimestamp(os.path.getmtime(
         'fungsi/today_dfs/AED_exchange.csv'))
 
-    tanggalupdategraph = datetime.fromtimestamp(os.path.getmtime(
+    tanggal_update_graph = datetime.fromtimestamp(os.path.getmtime(
         'fungsi/currency_dfs/AED/fx_daily_AED_ARS.csv'))
 
-    if (datetime.now() - tanggalupdatekonverter > timedelta(days=1)):
-        print("I am in!")
+    if (datetime.now() - tanggal_update_konverter > timedelta(days=1)):
+        print("Akan mengupdate data konverter")
         save_csv_today()
-    if (datetime.now() - tanggalupdategraph > timedelta(days=1)):
-        print("I am in!")
+    if (datetime.now() - tanggal_update_graph > timedelta(days=1)):
+        print("Akan mengupdate data graph")
         save_csv()
 
 
@@ -31,35 +31,35 @@ def home():
 
 @app.route("/konverter", methods=["GET", "POST"])
 def konverter():
-    tanggalupdatekonverter = os.path.getmtime(
+    tanggal_update_konverter = os.path.getmtime(
         'fungsi/today_dfs/AED_exchange.csv')
-    tanggalupdatekonverter = datetime.fromtimestamp(
-        tanggalupdatekonverter).strftime('%Y-%m-%d %H:%M:%S')
+    tanggal_update_konverter = datetime.fromtimestamp(
+        tanggal_update_konverter).strftime('%Y-%m-%d %H:%M:%S')
     if request.method == "POST":
         kuantitas = float(request.form.get('jumlah'))
-        matauangasal = request.form.get('matauangasal')
-        matauangtarget = request.form.get('matauangtarget')
+        mata_uang_asal = request.form.get('matauangasal')
+        mata_uang_target = request.form.get('matauangtarget')
 
-        hasilkonversi = getValue(kuantitas, matauangasal, matauangtarget)
-        return render_template("public/konverter.html", diperbarui=tanggalupdatekonverter, currencies=CURRENCIES, matauangasal=matauangasal, matauangtarget=matauangtarget, hasilkonversi=hasilkonversi, jumlahawal=kuantitas)
+        hasil_konversi = getValue(kuantitas, mata_uang_asal, mata_uang_target)
+        return render_template("public/konverter.html", diperbarui=tanggal_update_konverter, currencies=currencies, matauangasal=mata_uang_asal, matauangtarget=mata_uang_target, hasilkonversi=hasil_konversi, jumlahawal=kuantitas)
     else:
-        return render_template("public/konverter.html", diperbarui=tanggalupdatekonverter, currencies=CURRENCIES)
+        return render_template("public/konverter.html", diperbarui=tanggal_update_konverter, currencies=currencies)
 
 
 @app.route("/graph", methods=["GET", "POST"])
 def graph():
-    tanggalupdategraph = os.path.getmtime(
+    tanggal_update_graph = os.path.getmtime(
         'fungsi/currency_dfs/AED/fx_daily_AED_ARS.csv')
-    tanggalupdategraph = datetime.fromtimestamp(
-        tanggalupdategraph).strftime('%Y-%m-%d %H:%M:%S')
+    tanggal_update_graph = datetime.fromtimestamp(
+        tanggal_update_graph).strftime('%Y-%m-%d %H:%M:%S')
     if request.method == "POST":
-        matauangasal = request.form.get("matauangasal")
-        matauangtarget = request.form.get("matauangtarget")
-        graph_df(matauangasal, matauangtarget)
+        mata_uang_asal = request.form.get("matauangasal")
+        mata_uang_target = request.form.get("matauangtarget")
+        graph_df(mata_uang_asal, mata_uang_target)
         time.sleep(2)
-        return render_template("public/graph.html", diperbarui=tanggalupdategraph, currencies=CURRENCIES, matauangasal=matauangasal, matauangtarget=matauangtarget)
+        return render_template("public/graph.html", diperbarui=tanggal_update_graph, currencies=currencies, matauangasal=mata_uang_asal, matauangtarget=mata_uang_target)
     else:
-        return render_template("public/graph.html", diperbarui=tanggalupdategraph, currencies=CURRENCIES)
+        return render_template("public/graph.html", diperbarui=tanggal_update_graph, currencies=currencies)
 
 
 @app.route("/about")
@@ -67,7 +67,7 @@ def about():
     return render_template("public/about.html")
 
 
-CURRENCIES = [["AED", "Emirati Dirham"],
+currencies = [["AED", "Emirati Dirham"],
               ["ARS", "Argentine Peso"],
               ["AUD", "Australian Dollar"],
               ["BGN", "Bulgarian Lev"],
